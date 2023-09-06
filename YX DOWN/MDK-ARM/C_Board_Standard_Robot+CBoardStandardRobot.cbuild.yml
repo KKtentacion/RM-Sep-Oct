@@ -1,0 +1,483 @@
+build:
+  generated-by: csolution version 2.1.0
+  solution: C_Board_Standard_Robot.csolution.yaml
+  project: C_Board_Standard_Robot.cproject.yaml
+  context: C_Board_Standard_Robot+CBoardStandardRobot
+  compiler: AC6
+  device: STM32F407IGHx
+  processor:
+    fpu: on
+    endian: little
+    trustzone: non-secure
+  packs:
+    - pack: ARM::CMSIS@5.9.0
+      path: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0
+    - pack: Keil::STM32F4xx_DFP@2.17.1
+      path: ${CMSIS_PACK_ROOT}/Keil/STM32F4xx_DFP/2.17.1
+  optimize: speed
+  debug: on
+  misc:
+    C:
+      - -std=c99
+      - -fno-rtti
+      - -funsigned-char
+      - -fshort-enums
+      - -fshort-wchar
+      - -ffunction-sections
+    CPP:
+      - -xc++
+      - -std=c++03
+      - -fno-rtti
+      - -funsigned-char
+      - -fshort-enums
+      - -fshort-wchar
+      - -ffunction-sections
+    Link:
+      - --library_type=microlib
+      - --map
+      - --load_addr_map_info
+      - --xref
+      - --callgraph
+      - --symbols
+      - --info sizes
+      - --info totals
+      - --info unused
+      - --info veneers
+      - --list
+      - --strict
+      - --summary_stderr
+      - --info summarysizes
+  define:
+    - USE_HAL_DRIVER
+    - STM32F407xx
+    - ARM_MATH_CM4
+    - __FPU_USED: 1U
+    - __FPU_PRESENT: 1U
+    - __CC_ARM
+    - ARM_MATH_MATRIX_CHECK
+    - ARM_MATH_ROUNDING
+    - __MICROLIB
+    - STM32F407xx
+    - _RTE_
+  add-path:
+    - ../Inc
+    - ../Drivers/STM32F4xx_HAL_Driver/Inc
+    - ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
+    - ../Middlewares/Third_Party/FreeRTOS/Source/include
+    - ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS
+    - ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F
+    - ../Drivers/CMSIS/Device/ST/STM32F4xx/Include
+    - ../Drivers/CMSIS/Include
+    - ../Application
+    - ../Bsp
+    - ../Components
+    - ../Components/Algorithm
+    - ../Components/Controller
+    - ../Components/Devices
+    - ../Components/Algorithm/Include
+    - RTE/_CBoardStandardRobot
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Include
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/PrivateInclude
+    - ${CMSIS_PACK_ROOT}/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+  output-dirs:
+    intdir: tmp/C_Board_Standard_Robot/CBoardStandardRobot
+    outdir: out/C_Board_Standard_Robot/CBoardStandardRobot
+    rtedir: RTE
+  output:
+    - type: elf
+      file: C_Board_Standard_Robot.axf
+  components:
+    - component: ARM::CMSIS:CORE@5.6.0
+      condition: ARMv6_7_8-M Device
+      from-pack: ARM::CMSIS@5.9.0
+      selected-by: ARM::CMSIS:CORE
+    - component: ARM::CMSIS:DSP&Source@1.10.0
+      condition: CMSIS DSP
+      from-pack: ARM::CMSIS@5.9.0
+      selected-by: ARM::CMSIS:DSP&Source
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/BasicMathFunctions/BasicMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/BasicMathFunctions/BasicMathFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/BayesFunctions/BayesFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/BayesFunctions/BayesFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/CommonTables/CommonTables.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/CommonTables/CommonTablesF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/ComplexMathFunctions/ComplexMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/ComplexMathFunctions/ComplexMathFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/ControllerFunctions/ControllerFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/DistanceFunctions/DistanceFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/DistanceFunctions/DistanceFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/FastMathFunctions/FastMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/FastMathFunctions/FastMathFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/FilteringFunctions/FilteringFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/FilteringFunctions/FilteringFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/InterpolationFunctions/InterpolationFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/InterpolationFunctions/InterpolationFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/MatrixFunctions/MatrixFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/MatrixFunctions/MatrixFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/QuaternionMathFunctions/QuaternionMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/SVMFunctions/SVMFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/SVMFunctions/SVMFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/StatisticsFunctions/StatisticsFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/StatisticsFunctions/StatisticsFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/SupportFunctions/SupportFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/SupportFunctions/SupportFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/TransformFunctions/TransformFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/DSP/Source/TransformFunctions/TransformFunctionsF16.c
+          category: source
+  linker:
+    script: C_Board_Standard_Robot_CBoardStandardRobot.sct
+  groups:
+    - group: Application/MDK-ARM
+      files:
+        - file: startup_stm32f407xx.s
+          category: sourceAsm
+          misc:
+            ASM:
+              - -masm=auto
+        - file: ../Drivers/CMSIS/Lib/ARM/arm_cortexM4lf_math.lib
+          category: library
+    - group: Application/User
+      files:
+        - file: ../Src/main.c
+          category: sourceC
+        - file: ../Src/gpio.c
+          category: sourceC
+        - file: ../Src/freertos.c
+          category: sourceC
+        - file: ../Src/can.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Src/dma.c
+          category: sourceC
+        - file: ../Src/i2c.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Src/spi.c
+          category: sourceC
+        - file: ../Src/tim.c
+          category: sourceC
+        - file: ../Src/usart.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Src/stm32f4xx_it.c
+          category: sourceC
+        - file: ../Src/stm32f4xx_hal_msp.c
+          category: sourceC
+        - file: ../Src/stm32f4xx_hal_timebase_tim.c
+          category: sourceC
+    - group: Drivers/CMSIS
+      files:
+        - file: ../Src/system_stm32f4xx.c
+          category: sourceC
+    - group: Application/Applications
+      files:
+        - file: ../Application/ins_task.c
+          category: sourceC
+    - group: Application/Bsp
+      files:
+        - file: ../Bsp/bsp_dwt.c
+          category: sourceC
+        - file: ../Bsp/bsp_PWM.c
+          category: sourceC
+    - group: Application/Components
+      files:
+        - file: ../Components/Devices/BMI088driver.c
+          category: sourceC
+        - file: ../Components/Devices/BMI088Middleware.c
+          category: sourceC
+        - file: ../Components/kalman_filter.c
+          category: sourceC
+        - file: ../Components/user_lib.c
+          category: sourceC
+        - file: ../Components/Controller/controller.c
+          category: sourceC
+        - file: ../Components/Algorithm/QuaternionEKF.c
+          category: sourceC
+    - group: RTOS TASK
+      files:
+        - file: ../User/Task/Chassis_task.c
+          category: sourceC
+        - file: EXCHANGE.c
+          category: sourceC
+        - file: ../User/Task/UI_task.c
+          category: sourceC
+    - group: USER
+      files:
+        - file: ../User/AlgorithmLayer/CRC.c
+          category: sourceC
+        - file: ../User/AlgorithmLayer/pid.c
+          category: sourceC
+        - file: ../User/DriverLayer/drv_can.c
+          category: sourceC
+        - file: ../User/DriverLayer/drv_usart.c
+          category: sourceC
+        - file: ../User/PotocaLayer/judge.c
+          category: sourceC
+        - file: ../User/PotocaLayer/rc_potocal.c
+          category: sourceC
+    - group: Drivers/STM32F4xx_HAL_Driver
+      misc:
+        C:
+          - -Wno-packed
+          - -Wno-missing-variable-declarations
+          - -Wno-missing-prototypes
+          - -Wno-missing-noreturn
+          - -Wno-sign-conversion
+          - -Wno-nonportable-include-path
+          - -Wno-reserved-id-macro
+          - -Wno-unused-macros
+          - -Wno-documentation-unknown-command
+          - -Wno-documentation
+          - -Wno-license-management
+          - -Wno-parentheses-equality
+          - -Wno-covered-switch-default
+          - -Wno-unreachable-code-break
+        CPP:
+          - -xc++
+          - -Wno-packed
+          - -Wno-missing-variable-declarations
+          - -Wno-missing-prototypes
+          - -Wno-missing-noreturn
+          - -Wno-sign-conversion
+          - -Wno-nonportable-include-path
+          - -Wno-reserved-id-macro
+          - -Wno-unused-macros
+          - -Wno-documentation-unknown-command
+          - -Wno-documentation
+          - -Wno-license-management
+          - -Wno-parentheses-equality
+          - -Wno-covered-switch-default
+          - -Wno-unreachable-code-break
+      files:
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+    - group: Middlewares/FreeRTOS
+      misc:
+        C:
+          - -Wno-packed
+          - -Wno-missing-variable-declarations
+          - -Wno-missing-prototypes
+          - -Wno-missing-noreturn
+          - -Wno-sign-conversion
+          - -Wno-nonportable-include-path
+          - -Wno-reserved-id-macro
+          - -Wno-unused-macros
+          - -Wno-documentation-unknown-command
+          - -Wno-documentation
+          - -Wno-license-management
+          - -Wno-parentheses-equality
+          - -Wno-covered-switch-default
+          - -Wno-unreachable-code-break
+        CPP:
+          - -xc++
+          - -Wno-packed
+          - -Wno-missing-variable-declarations
+          - -Wno-missing-prototypes
+          - -Wno-missing-noreturn
+          - -Wno-sign-conversion
+          - -Wno-nonportable-include-path
+          - -Wno-reserved-id-macro
+          - -Wno-unused-macros
+          - -Wno-documentation-unknown-command
+          - -Wno-documentation
+          - -Wno-license-management
+          - -Wno-parentheses-equality
+          - -Wno-covered-switch-default
+          - -Wno-unreachable-code-break
+      files:
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/list.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/queue.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/tasks.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/timers.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+        - file: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c
+          category: sourceC
+          misc:
+            CPP:
+              - -xc++
+  constructed-files:
+    - file: RTE/_CBoardStandardRobot/RTE_Components.h
+      category: header
+  licenses:
+    - license: <unknown>
+      packs:
+        - pack: ARM::CMSIS@5.9.0
+      components:
+        - component: ARM::CMSIS:CORE@5.6.0
+        - component: ARM::CMSIS:DSP&Source@1.10.0
+    - license: <unknown>
+      packs:
+        - pack: Keil::STM32F4xx_DFP@2.17.1
