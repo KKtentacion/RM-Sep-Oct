@@ -29,6 +29,6 @@ message\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.
 message\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 message\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 message\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-message\main.o: ../Core/Inc/dma.h
 message\main.o: ../Core/Inc/usart.h
 message\main.o: ../Core/Inc/gpio.h
+message\main.o: E:\Keil_MDK\ARM\ARMCC\Bin\..\include\stdio.h
