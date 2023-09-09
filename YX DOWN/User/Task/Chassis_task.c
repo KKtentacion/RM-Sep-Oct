@@ -6,8 +6,8 @@
 pid_struct_t motor_pid_chassis[4];
 pid_struct_t supercap_pid;
 motor_info_t  motor_info_chassis[8];       //电机信息结构体
-fp32 chassis_motor_pid [3]={30,0.5,10};   //用的原来的pid
-fp32 superpid[3] = {120,0.1,0};
+ fp32 chassis_motor_pid [3]={30,0.5,10};   //用的原来的pid
+ fp32 superpid[3] = {120,0.1,0};
 volatile int16_t Vx=0,Vy=0,Wz=0;
 int16_t Temp_Vx;
 int16_t Temp_Vy;
@@ -49,16 +49,9 @@ void qe();
   
     for(;;)				//底盘运动任务
     {     
+ 					
+            osDelay(1);
 
-      for (int i=0;i<4;i++){
-        chassis_motol_speed_calculate();                                        //计算每一个电机的目标值
-
-        Motor_Speed_limiting(motor_speed_target[i],50);                         //限制每一个电机的速率
-      }
-
-      chassis_current_give();                                                   //对每一个电机通过电流进行对速度的pid控制
-
-      osDelay(1);
     }
 
 
@@ -80,7 +73,7 @@ static void Chassis_loop_Init()
 void chassis_motol_speed_calculate()
 {
 	
-	  motor_speed_target[CHAS_LF] =  0;       //CHAS_LF=0
+	  motor_speed_target[CHAS_LF] =  0;
     motor_speed_target[CHAS_RF] =  0;
     motor_speed_target[CHAS_RB] =  0; 
     motor_speed_target[CHAS_LB] =  0;
@@ -126,6 +119,7 @@ void chassis_current_give()
         motor_info_chassis[i].set_current = pid_calc(&motor_pid_chassis[i], motor_info_chassis[i].rotor_speed,motor_speed_target[i]);
     }
     	set_motor_current_can2(0, motor_info_chassis[0].set_current, motor_info_chassis[1].set_current, motor_info_chassis[2].set_current, motor_info_chassis[3].set_current);
+ 
 
 }
 
