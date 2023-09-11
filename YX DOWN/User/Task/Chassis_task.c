@@ -46,10 +46,22 @@ void qe();
 			} 
 				pid_init(&supercap_pid, superpid, 3000, 3000); //init pid parameter, kp=40, ki=3, kd=0, output limit = 16384			
 
+        Chassis_loop_Init();
   
     for(;;)				//底盘运动任务
     {     
- 					
+            Vx=rc_ctrl.rc.ch[0];
+
+            Vy=rc_ctrl.rc.ch[1];
+
+            Wz=rc_ctrl.rc.ch[2];
+
+ 					  chassis_motol_speed_calculate();
+
+            Motor_Speed_limiting(motor_speed_target,500);
+
+            chassis_current_give();
+
             osDelay(1);
 
     }
@@ -77,6 +89,8 @@ void chassis_motol_speed_calculate()
     motor_speed_target[CHAS_RF] =  0;
     motor_speed_target[CHAS_RB] =  0; 
     motor_speed_target[CHAS_LB] =  0;
+
+    
 }
 //运动解算
 //速度限制函数
