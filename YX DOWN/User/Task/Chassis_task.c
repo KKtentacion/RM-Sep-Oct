@@ -6,7 +6,7 @@
 pid_struct_t motor_pid_chassis[4];
 pid_struct_t supercap_pid;
 motor_info_t  motor_info_chassis[8];       //电机信息结构体
- fp32 chassis_motor_pid [3]={30,0.5,10};   //用的原来的pid
+ fp32 chassis_motor_pid [3]={15,0.5,10};   //用的原来的pid
  fp32 superpid[3] = {120,0.1,0};
 volatile int16_t Vx=0,Vy=0,Wz=0;
 int16_t Temp_Vx;
@@ -45,6 +45,7 @@ void qe();
 				
 			} 
 				pid_init(&supercap_pid, superpid, 3000, 3000); //init pid parameter, kp=40, ki=3, kd=0, output limit = 16384			
+
 
         Chassis_loop_Init();
   
@@ -85,12 +86,10 @@ static void Chassis_loop_Init()
 void chassis_motol_speed_calculate()
 {
 	
-	  motor_speed_target[CHAS_LF] =  0;
-    motor_speed_target[CHAS_RF] =  0;
-    motor_speed_target[CHAS_RB] =  0; 
-    motor_speed_target[CHAS_LB] =  0;
-
-    
+	  motor_speed_target[CHAS_LF] =  2*(Vx+Vy-Wz);
+    motor_speed_target[CHAS_RF] =  -2*(Vx-Vy+Wz);
+    motor_speed_target[CHAS_RB] =  -2*(Vx+Vy+Wz); 
+    motor_speed_target[CHAS_LB] =  2*(Vx-Vy-Wz);
 }
 //运动解算
 //速度限制函数
