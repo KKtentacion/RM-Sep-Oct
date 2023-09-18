@@ -32,3 +32,4 @@ message\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 message\main.o: ../Core/Inc/usart.h
 message\main.o: ../Core/Inc/gpio.h
 message\main.o: E:\Keil_MDK\ARM\ARMCC\Bin\..\include\stdio.h
+message\main.o: E:\Keil_MDK\ARM\ARMCC\Bin\..\include\string.h
