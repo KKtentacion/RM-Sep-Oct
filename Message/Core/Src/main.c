@@ -91,7 +91,7 @@ int main(void)
 		
   uint8_t num=0;
   char c;
-  printf("code is ready");
+  printf("code is ready\n");
   printf("please input start!\n");
   while((char*)scanf("%c\n",&c)!="start")
 
