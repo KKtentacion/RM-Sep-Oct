@@ -1,0 +1,28 @@
+--cpu=Cortex-M4.fp.sp
+"message-2\startup_stm32f407xx.o"
+"message-2\main.o"
+"message-2\gpio.o"
+"message-2\usart.o"
+"message-2\stm32f4xx_it.o"
+"message-2\stm32f4xx_hal_msp.o"
+"message-2\stm32f4xx_hal_tim.o"
+"message-2\stm32f4xx_hal_tim_ex.o"
+"message-2\stm32f4xx_hal_uart.o"
+"message-2\stm32f4xx_hal_rcc.o"
+"message-2\stm32f4xx_hal_rcc_ex.o"
+"message-2\stm32f4xx_hal_flash.o"
+"message-2\stm32f4xx_hal_flash_ex.o"
+"message-2\stm32f4xx_hal_flash_ramfunc.o"
+"message-2\stm32f4xx_hal_gpio.o"
+"message-2\stm32f4xx_hal_dma_ex.o"
+"message-2\stm32f4xx_hal_dma.o"
+"message-2\stm32f4xx_hal_pwr.o"
+"message-2\stm32f4xx_hal_pwr_ex.o"
+"message-2\stm32f4xx_hal_cortex.o"
+"message-2\stm32f4xx_hal.o"
+"message-2\stm32f4xx_hal_exti.o"
+"message-2\system_stm32f4xx.o"
+--strict --scatter "Message-2\Message-2.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Message-2.map" -o Message-2\Message-2.axf
