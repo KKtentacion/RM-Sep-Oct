@@ -34,7 +34,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -56,7 +55,8 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-extern char RxBuffer[256];
+char RxBuffer[1];
+uint8_t flag=0;
 /* USER CODE END 0 */
 
 /**
@@ -66,7 +66,6 @@ extern char RxBuffer[256];
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -90,7 +89,8 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   
-  HAL_UART_Receive_IT(&huart1,(uint8_t *)&RxBuffer,255);
+  HAL_UART_Receive_IT(&huart1,(uint8_t *)&RxBuffer,1);
+  printf("test start");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,7 +100,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    printf("test start");
+
+    printf("system has waiting for %d\n",flag++);
     HAL_Delay(1000);
   }
   /* USER CODE END 3 */
@@ -152,7 +153,27 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+// 接收回调函数（由于需要覆盖原先的弱函数，本函数名称不能更改）
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) 
+{
+    if(huart == &huart1) // 如果是串口1
+    {
+      printf("now is in callback\n");
+      if(!strcmp(RxBuffer,"s")){
+        HAL_GPIO_WritePin(GPIOH,GPIO_PIN_12,GPIO_PIN_SET);
+        printf("LED is on\n");
+        flag=0;
+      }
+      else if (!strcmp(RxBuffer,"e")){
+        HAL_GPIO_WritePin(GPIOH,GPIO_PIN_12,GPIO_PIN_RESET);
+        printf("LED is off\n");
+        flag=0;
+      }
+    }
 
+    // 使用HAL_UART_Receive_IT()时，只会进入一次中断。因此需要在回调函数内再次调用该函数
+    HAL_UART_Receive_IT(&huart1, (uint8_t *)RxBuffer, 1);
+}
 /* USER CODE END 4 */
 
 /**
