@@ -24,7 +24,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,7 +46,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+char RxBuffer[1];
+uint8_t flag=0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,7 +92,7 @@ int main(void)
   MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_UART_Receive_DMA(&huart1,(uint8_t *)&RxBuffer,1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,6 +102,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    printf("ready\n");
+    HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
@@ -150,7 +154,25 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) 
+{
+    if(huart == &huart1) // 如果是串口1
+    {
+      printf("now is in callback\n");
+      if(!strcmp(RxBuffer,"s")){
+        HAL_GPIO_WritePin(GPIOH,GPIO_PIN_12,GPIO_PIN_SET);
+        printf("LED is on\n");
+        flag=0;
+      }
+      else if (!strcmp(RxBuffer,"e")){
+        HAL_GPIO_WritePin(GPIOH,GPIO_PIN_12,GPIO_PIN_RESET);
+        printf("LED is off\n");
+        flag=0;
+      }
+    }
 
+    HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuffer, 1);
+}
 /* USER CODE END 4 */
 
 /**

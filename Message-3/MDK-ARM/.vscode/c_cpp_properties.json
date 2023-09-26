@@ -3,18 +3,18 @@
         {
             "name": "Message-3",
             "includePath": [
-                "e:\\RM\\RM-Sep-Oct\\Message-3\\Core\\Inc",
-                "e:\\RM\\RM-Sep-Oct\\Message-3\\Drivers\\STM32F4xx_HAL_Driver\\Inc",
-                "e:\\RM\\RM-Sep-Oct\\Message-3\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy",
-                "e:\\RM\\RM-Sep-Oct\\Message-3\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include",
-                "e:\\RM\\RM-Sep-Oct\\Message-3\\Drivers\\CMSIS\\Include",
+                "e:\\NewRM\\RM-Sep-Oct\\Message-3\\Core\\Inc",
+                "e:\\NewRM\\RM-Sep-Oct\\Message-3\\Drivers\\STM32F4xx_HAL_Driver\\Inc",
+                "e:\\NewRM\\RM-Sep-Oct\\Message-3\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy",
+                "e:\\NewRM\\RM-Sep-Oct\\Message-3\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include",
+                "e:\\NewRM\\RM-Sep-Oct\\Message-3\\Drivers\\CMSIS\\Include",
                 "E:\\Keil_MDK\\ARM\\ARMCC\\include",
                 "E:\\Keil_MDK\\ARM\\ARMCC\\include\\arm_linux",
                 "E:\\Keil_MDK\\ARM\\ARMCC\\include\\arm_linux_compat",
                 "E:\\Keil_MDK\\ARM\\ARMCC\\include\\rw",
-                "e:\\RM\\RM-Sep-Oct\\Message-3\\MDK-ARM",
-                "e:\\RM\\RM-Sep-Oct\\Message-3\\Core\\Src",
-                "e:\\RM\\RM-Sep-Oct\\Message-3\\Drivers\\STM32F4xx_HAL_Driver\\Src"
+                "e:\\NewRM\\RM-Sep-Oct\\Message-3\\MDK-ARM",
+                "e:\\NewRM\\RM-Sep-Oct\\Message-3\\Core\\Src",
+                "e:\\NewRM\\RM-Sep-Oct\\Message-3\\Drivers\\STM32F4xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
