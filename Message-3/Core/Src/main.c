@@ -92,7 +92,7 @@ int main(void)
   MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Receive_DMA(&huart1,(uint8_t *)&RxBuffer,1);
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -103,6 +103,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     printf("ready\n");
+		HAL_UART_Receive_DMA(&huart1,(uint8_t *)&RxBuffer,1);
     HAL_Delay(1000);
   }
   /* USER CODE END 3 */
