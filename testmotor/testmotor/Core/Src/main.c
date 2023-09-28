@@ -28,12 +28,21 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define LimitMax(input, max)   \
+    {                          \
+        if (input > max)       \
+        {                      \
+            input = max;       \
+        }                      \
+        else if (input < -max) \
+        {                      \
+            input = -max;      \
+        }                      \
+    }
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -50,12 +59,18 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+void pid_init(pid_struct_t *pid,   float PID[3], float max_out, float max_iout) ;
+float PIDcal(pid_struct_t* pid,float get,float set);
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void startmotor(int16_t setspeed);
+pid_struct_t motor_pid;
+extern motor_info_t  motor_info_chassis;
+float set_motor_pid [3]={5,0.5,10};
+const float motor_speed_target=1;
 /* USER CODE END 0 */
 
 /**
@@ -88,6 +103,8 @@ int main(void)
   MX_GPIO_Init();
   MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
+  CAN1_Init();
+  pid_init(&motor_pid,set_motor_pid,1000,1000);
 
   /* USER CODE END 2 */
 
@@ -96,8 +113,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    startmotor(5000);
+
     /* USER CODE BEGIN 3 */
+     startmotor(motor_info_chassis.set_current);
   }
   /* USER CODE END 3 */
 }
@@ -158,19 +176,46 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void startmotor(int16_t setspeed)
 {
-  CAN_TxHeaderTypeDef tx_header;
-  uint8_t             tx_data[2];
-    
-  tx_header.StdId = 0x200;
-  tx_header.IDE   = CAN_ID_STD;//标准帧
-  tx_header.RTR   = CAN_RTR_DATA;//数据帧
-	
-  tx_header.DLC   = 8;		//发送数据长度（字节）
-
-	tx_data[0] = (setspeed>>8)&0xff;	//先发高八位		
-  tx_data[1] = (setspeed)&0xff;
-  HAL_CAN_AddTxMessage(&hcan1, &tx_header, tx_data,(uint32_t*)CAN_TX_MAILBOX0);
+    motor_info_chassis.set_current = PIDcal(&motor_pid, motor_info_chassis.rotor_speed,motor_speed_target);
+    set_motor_speed(motor_info_chassis.set_current);
 }
+
+void pid_init(pid_struct_t *pid,   float PID[3], float max_out, float max_iout)   //pid结构体初始化，后两个参数分别设置输出最大值，积分最大值
+{
+    if (pid == NULL || PID == NULL)
+    {
+        return;
+    }
+   
+    pid->Kp = PID[0];
+    pid->Ki = PID[1];
+    pid->Kd = PID[2];
+    pid->max_out = max_out;
+    pid->max_iout = max_iout;
+    pid->Dbuf[0] = pid->Dbuf[1] = pid->Dbuf[2] = 0.0f;
+    pid->error[0] = pid->error[1] = pid->error[2] = pid->Pout = pid->Iout = pid->Dout = pid->out = 0.0f;
+}
+
+float PIDcal(pid_struct_t* pid,float get,float set)
+{
+  pid->error[1] = pid->error[0];
+  pid->set = set;
+  pid->get = get;
+  pid->error[0] = set - get;
+
+  pid->Pout = pid->Kp * pid->error[0];
+  pid->Iout += pid->Ki * pid->error[0];
+
+  pid->Dbuf[1] = pid->Dbuf[0];
+  pid->Dbuf[0] = (pid->error[0] - pid->error[1]);
+  pid->Dout = pid->Kd * pid->Dbuf[0];
+  LimitMax(pid->Iout, pid->max_iout);
+  pid->out = pid->Pout + pid->Iout + pid->Dout;
+  LimitMax(pid->out, pid->max_out);
+  return pid->out;
+}
+
+
 /* USER CODE END 4 */
 
 /**
